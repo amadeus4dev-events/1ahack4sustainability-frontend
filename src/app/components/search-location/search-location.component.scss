@@ -1,0 +1,21 @@
+@use '@angular/material' as mat;
+@import 'src/variables';
+
+$secondary-text: mat.get-color-from-palette($foreground-palette, 'secondary-text');
+
+.city {
+  width: 100%;
+  font-size: .7rem;
+  color: $secondary-text;
+  padding: .2rem 0;
+}
+
+mat-option {
+  border-bottom: 1px solid #eee;
+}
+
+::ng-deep .search-location-modal .mat-option-text {
+  display: flex;
+  flex-direction: column;
+  line-height: normal;
+}

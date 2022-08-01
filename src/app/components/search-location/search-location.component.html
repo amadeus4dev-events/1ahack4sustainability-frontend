@@ -1,0 +1,18 @@
+<mat-form-field [floatLabel]="'always'">
+  <mat-label>{{label}}</mat-label>
+  <input type="text"
+         placeholder="Pick one"
+         [attr.aria-label]="label"
+         matInput
+         [formControl]="control"
+         [matAutocomplete]="auto">
+  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayLocation" [class]="'search-location-modal'" [panelWidth]="'auto'">
+    <mat-option disabled class="loading" *ngIf="isLoading$ | async">
+      <mat-spinner diameter="35"></mat-spinner>
+    </mat-option>
+    <mat-option *ngFor="let option of filteredLocations$ | async" [value]="option">
+      <span class="city">{{option?.address?.cityName}} - {{option?.address?.countryName}}</span>
+      <span>{{option.subType === 'CITY' ? 'ALL AIRPORTS' : option.name}}</span>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

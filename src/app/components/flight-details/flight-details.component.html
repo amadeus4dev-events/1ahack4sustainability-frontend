@@ -1,0 +1,44 @@
+<div class="container" *ngIf="flightItinerary">
+  <h3 class="mat-h3 header">
+    <span class="title">Your flight details</span>
+    <button mat-flat-button [color]="view === 'classic' ? 'accent' : null" (click)="view = 'classic'">
+      <mat-icon>article</mat-icon>
+      <span>Classic</span>
+    </button>
+    <button mat-flat-button [color]="view === 'map' ? 'accent' : null" (click)="view = 'map'">
+      <mat-icon>pin_drop</mat-icon>
+      <span>Map</span>
+    </button>
+  </h3>
+  <ng-container *ngIf="view === 'classic'">
+    <app-segment-details *ngFor="let segment of flightItinerary!.segments; let index = index; let isLast = last;"
+                         [previousArrival]="flightItinerary!.segments[index - 1]?.arrival"
+                         [nextDeparture]="flightItinerary!.segments[index + 1]?.departure"
+                         [aircraftCode]="segment.aircraft!.code"
+                         [airlineCode]="segment.carrierCode"
+                         [arrival]="segment.arrival"
+                         [departure]="segment.departure"
+                         [duration]="segment.duration">
+    </app-segment-details>
+  </ng-container>
+  <ng-container *ngIf="view === 'map'">
+    <app-map [endPoints]="(endPoints$ | async) || []">
+    </app-map>
+  </ng-container>
+  <div class="miles-recap">
+    <div class="mat-h3 miles-title">
+      <span>GreenMiles©</span>
+      <mat-icon>local_florist</mat-icon>
+    </div>
+    <div class="mat-body-1 miles-message">
+      <ng-container *ngIf="flightItinerary && flightItinerary.segments.length === 1; else notGreen;">
+        <mat-icon>sentiment_very_satisfied</mat-icon>
+        <span>Direct flight: -0pt</span>
+      </ng-container>
+      <ng-template #notGreen>
+        <mat-icon>sentiment_very_dissatisfied</mat-icon>
+        <span>-20pt per stop</span>
+      </ng-template>
+    </div>
+  </div>
+</div>

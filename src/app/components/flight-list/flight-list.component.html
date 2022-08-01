@@ -1,0 +1,26 @@
+<div class="flight-selection-container">
+  <mat-spinner *ngIf="isLoading$ | async; else flights"></mat-spinner>
+  <ng-template  #flights>
+    <ng-container *ngIf="flights$ | async as flights">
+      <div class="flight-selection">
+        <button mat-button color="primary" (click)="toggleShowMore()">
+          <span *ngIf="showMore$ | async">Less Flights</span>
+          <span *ngIf="!(showMore$ | async)">More Flights</span>
+        </button>
+        <ul class="flight-list">
+          <li *ngFor="let flight of flights;" class="flight">
+            <div>
+              <app-flight-recap *ngFor="let itinerary of flight.itineraries"
+                                [itinerary]="itinerary"
+                                [price]="flight.price"
+                                [selected]="selectedItem === flight"
+                                (selection)="selectItem(flight)"
+              ></app-flight-recap>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <app-flight-details [flightItinerary]="selectedItem?.itineraries?.[0]"></app-flight-details>
+    </ng-container>
+  </ng-template>
+</div>

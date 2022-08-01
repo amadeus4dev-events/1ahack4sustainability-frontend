@@ -1,0 +1,138 @@
+@use '@angular/material' as mat;
+@import 'src/variables';
+
+$leaf-radius: 4rem;
+$secondary-text: mat.get-color-from-palette($foreground-palette, 'secondary-text');
+$separator-color: mat.get-color-from-palette($foreground-palette, 'dividers');
+$primary-contrast-color: mat.get-contrast-color-from-palette($my-primary, 600);
+$primary-color: mat.get-color-from-palette($my-primary, 600);
+$accent-color: mat.get-color-from-palette($my-accent, 600);
+$accent-contrast-color: mat.get-contrast-color-from-palette($my-accent, 600);
+$card-size: calc(50% - 2rem);
+$card-size-highlight: calc(#{$card-size} + 6rem);
+
+:host.highlight .flight-card {
+  width: $card-size-highlight;
+
+  .card-price {
+    color: $accent-contrast-color;
+    background-color: $accent-color;
+    padding-left: calc((#{$card-size-highlight} - #{$card-size}) / 2);
+    padding-right: calc((#{$card-size-highlight} - #{$card-size}) / 2 + 2rem);
+  }
+
+  .date, .direct {
+    color: $accent-color;
+  }
+}
+
+.flight-card {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  border-radius: .5rem 0 $leaf-radius .5rem;
+  width: $card-size;
+  min-width: 26rem;
+  transition: width 500ms ease-in-out;
+
+  &:hover, &:focus {
+    opacity: 90%;
+    @include mat.elevation(4);
+  }
+
+  &:active {
+    opacity: 50%;
+  }
+
+  > div {
+    padding: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    &.duration {
+      justify-content: center;
+      flex: 1;
+    }
+  }
+}
+
+.flight-card .card-price {
+  transition: padding 500ms ease-in-out;
+  align-items: center;
+  color: $primary-contrast-color;
+  border-radius: $leaf-radius 0;
+  background-color: $primary-color;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.1rem;
+  padding-top: calc(#{$leaf-radius} / 2);
+}
+
+.green-miles {
+  font-size: .8rem;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+
+  mat-icon {
+    font-size: 1rem;
+  }
+}
+
+.info {
+  font-size: .75rem;
+  color: $secondary-text;
+}
+
+.duration {
+  .stops, .direct {
+    width: 100%;
+    border-bottom: 1px solid $separator-color;
+    text-align: center;
+  }
+
+  :first-child {
+    padding-bottom: .5rem;
+  }
+
+  :last-child {
+    padding-top: .5rem;
+  }
+}
+
+.date {
+  padding: .5rem;
+  font-size: 1.5rem;
+}
+
+.direct {
+  font-weight: bold;
+}
+
+.date, .direct {
+  color: $primary-color;
+}
+
+@media (max-width: 1300px) {
+  .flight-card {
+    &, :host.highlight & {
+      width: auto;
+      min-width: 0;
+
+      .card-price {
+        padding-left: .5rem;
+        padding-right: .5rem;
+      }
+    }
+
+    > div {
+      padding: 1.1rem .5rem;
+    }
+
+    &.duration {
+      flex: 0;
+    }
+  }
+}

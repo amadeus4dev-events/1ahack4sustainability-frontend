@@ -1,0 +1,29 @@
+<mat-card class="flight-card"
+          tabindex="0"
+          (keydown.enter)="selection.emit()"
+          (click)="selection.emit()">
+  <div>
+    <div class="info">{{departureDate | date: 'E dd MMM'}}</div>
+    <div class="date">{{departureDate | date: 'HH:mm'}}</div>
+    <div class="info">{{departureCode}}</div>
+  </div>
+  <div class="duration">
+    <!--  Translate / plural pipe -->
+    <div class="info" [class.direct]="stopNumber === 0" [class.stops]="stopNumber && stopNumber >= 1">
+      {{stopNumber === 0 ? 'Direct' : stopNumber + ' stop' + (stopNumber === 1 ? '' : 's')}}
+    </div>
+    <div class="info">{{duration | formatDuration}}</div>
+  </div>
+  <div>
+    <div class="info">{{arrivalDate | date: 'E dd MMM'}}</div>
+    <div class="date">{{arrivalDate | date: 'HH:mm'}}</div>
+    <div class="info">{{arrivalCode}}</div>
+  </div>
+  <div class="card-price">
+    <div>{{price?.grandTotal}} {{price?.currency}}</div>
+    <div class="green-miles">
+      <span>{{greenMiles}} GreenMiles©</span>
+      <mat-icon>local_florist</mat-icon>
+    </div>
+  </div>
+</mat-card>

@@ -1,0 +1,72 @@
+@use '@angular/material' as mat;
+@import 'src/variables';
+
+$primary-contrast-color: mat.get-contrast-color-from-palette($my-primary, 600);
+$primary-color: mat.get-color-from-palette($my-primary, 600);
+
+mat-nav-list {
+  padding-top: 0;
+
+  .mat-list-item {
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+
+    &.navigation-active {
+      background: $primary-color;
+      color: $primary-contrast-color;
+      cursor: initial;
+
+      .right-icon {
+        display: none;
+      }
+
+      &:hover {
+        background: $primary-color;
+      }
+    }
+
+    a > mat-icon {
+      vertical-align: text-bottom;
+      margin-right: .375rem;
+    }
+  }
+}
+
+:host::ng-deep {
+  .mat-list-base .mat-list-item .mat-list-item-content {
+    padding: 0;
+    color: inherit;
+  }
+
+  .mat-list-text {
+    height: 100%;
+  }
+}
+
+.mat-list-item {
+  height: 100%;
+
+  a {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 1rem;
+  }
+}
+
+.navigation-label {
+  flex-grow: 1;
+}
+
+@media (max-width: 900px) {
+  mat-nav-list {
+    display: flex;
+    border-top: 1px solid #ccc;
+  }
+
+  .navigation-label {
+    font-size: .8rem;
+  }
+}

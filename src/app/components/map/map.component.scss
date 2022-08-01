@@ -1,0 +1,8 @@
+#map-container {
+  width: 100%;
+  height: 100%;
+}
+
+:host::ng-deep .marker:hover {
+  z-index: 1;
+}
