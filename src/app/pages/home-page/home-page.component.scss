@@ -1,0 +1,29 @@
+.home-container {
+  padding: 1rem 2rem;
+}
+
+button.mat-flat-button.mat-primary {
+  color: white;
+}
+
+.home-title {
+  display: block;
+  margin: 0 auto;
+  background: url("../../../assets/pexels-lara-jameson-8828602.jpg") no-repeat center;
+  background-size: cover;
+  padding: 0 0 3rem;
+
+  h2 {
+    text-align: center;
+    background: #00000088;
+    color: white;
+    padding: .5rem;
+    margin-top: 0;
+  }
+}
+
+.action {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 1rem;
+}

@@ -1,0 +1,52 @@
+mat-spinner {
+  margin: 2rem auto auto;
+}
+
+.flight-list {
+  list-style: none;
+  margin: 0;
+  padding: 2rem;
+}
+
+.flight {
+  padding: 1rem 0;
+
+  &:first-of-type {
+    padding-top: 0;
+  }
+
+  &:last-of-type {
+    padding-bottom: 0;
+  }
+}
+
+app-flight-details {
+  display: block;
+  right: 2rem;
+  width: calc(50% - 2rem);
+  position: absolute;
+}
+
+.flight-selection-container {
+  position: relative;
+}
+
+@media (max-width: 900px) {
+  .flight-list {
+    padding: 0;
+  }
+
+  .flight {
+    padding: .5rem 0;
+  }
+}
+
+@media (max-width: 1300px) {
+  app-flight-details {
+    position: static;
+    width: auto;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+}
+

@@ -1,0 +1,98 @@
+@use '@angular/material' as mat;
+@import 'src/variables';
+
+$primary-contrast-color: mat.get-contrast-color-from-palette($my-primary, 600);
+$primary-color: mat.get-color-from-palette($my-primary, 600);
+
+.inspire-container {
+  padding: 1rem 2rem;
+}
+
+button.mat-flat-button.mat-primary {
+  color: white;
+}
+
+.flavor {
+  cursor: pointer;
+
+  &:hover {
+    @include mat.elevation(4);
+  }
+}
+
+.destinations-container, .flavors {
+  display: flex;
+  padding-bottom: 2rem;
+  flex-wrap: wrap;
+  margin: 0 -1rem;
+
+  .flavor, .destination {
+    flex: 1;
+    margin-bottom: 0;
+    min-width: 12rem;
+
+    &.selected {
+      margin-bottom: -1rem;
+      @include mat.elevation(6);
+
+      > :last-child {
+        margin-top: auto;
+        margin-bottom: auto;
+      }
+    }
+  }
+}
+
+
+mat-card {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+
+  > :last-child {
+    margin-top: auto;
+  }
+}
+
+.inspire-title {
+  display: block;
+  margin: 0 auto;
+  background-size: contain;
+  background: url("../../../assets/pexels-porapak-apichodilok-346696.jpg") no-repeat center;
+  background-size: cover;
+  padding: 0 0 3rem;
+
+  h2 {
+    text-align: center;
+    background: #00000088;
+    color: white;
+    padding: .5rem;
+    margin-top: 0;
+  }
+}
+
+.mat-radio-button {
+  padding: 1rem;
+  margin-right: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.flavor-image {
+  object-fit: cover;
+  height: 15rem;
+}
+
+.green-miles {
+  color: $primary-color;
+}
+
+.green-miles-earned {
+  color: $primary-color;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.destination-image {
+  object-fit: cover;
+}

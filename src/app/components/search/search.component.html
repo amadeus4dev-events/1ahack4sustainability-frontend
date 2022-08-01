@@ -1,0 +1,22 @@
+<h2 class="mat-h1">Find flights</h2>
+
+<form class="search-container">
+  <app-search-location [formControl]="formGroup.controls.originLocation"
+                       [label]="'Origin Location'"></app-search-location>
+
+  <app-search-location [formControl]="formGroup.controls.destinationLocation"
+                       [label]="'Destination Location'"></app-search-location>
+
+  <mat-form-field [floatLabel]="'always'">
+    <mat-label>Departure date</mat-label>
+    <input name="departure-date" matInput [matDatepicker]="picker" [formControl]="formGroup.controls.departureDate" placeholder="MM/DD/YYYY">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <button mat-flat-button color="primary" aria-label="Search flights" (click)="onSearch()"
+          [disabled]="formGroup.invalid">
+    <mat-icon>search</mat-icon>
+    <span>Search</span>
+  </button>
+</form>

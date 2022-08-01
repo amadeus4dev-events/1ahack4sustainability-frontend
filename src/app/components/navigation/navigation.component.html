@@ -1,0 +1,9 @@
+<mat-nav-list>
+  <mat-list-item *ngFor="let navigationItem of navigationItems" [class.navigation-active]="isSelected$[navigationItem.path] | async">
+    <a [routerLink]="navigationItem.path">
+      <mat-icon>{{navigationItem.icon}}</mat-icon>
+      <span class="navigation-label">{{navigationItem.label}}</span>
+      <mat-icon class="right-icon">chevron_right</mat-icon>
+    </a>
+  </mat-list-item>
+</mat-nav-list>

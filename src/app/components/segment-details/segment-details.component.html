@@ -1,0 +1,38 @@
+<div class="mat-body-1 segment">
+  <div class="schedule">
+    <div class="time mat-h2">
+      {{departure?.at | date: 'HH:mm'}}
+      <ng-container *ngIf="previousArrival?.at | changeDate : departure?.at as nextDateDepartureIndicator">
+        <sup class="mat-small next-date">
+          +{{nextDateDepartureIndicator}}
+        </sup>
+      </ng-container>
+    </div>
+    <div class="duration mat-small" *ngIf="duration">{{duration | formatDuration}}</div>
+    <div class="time mat-h2">
+      {{arrival?.at | date: 'HH:mm'}}
+      <sup class="mat-small next-date" *ngIf="departure?.at | changeDate : arrival?.at as nextDateArrivalIndicator">
+        +{{nextDateArrivalIndicator}}
+      </sup>
+    </div>
+  </div>
+  <div class="mat-divider-vertical timeline">
+    <div class="circle"></div>
+    <div class="circle"></div>
+  </div>
+  <div class="description">
+    <div class="airport mat-h2">{{departure?.iataCode}}</div>
+    <div class="flight mat-small">
+      <mat-icon>flight</mat-icon>
+      <div>
+        <div *ngIf="airlineCode">{{(airlineNames$ | async)?.[airlineCode]}}</div>
+        <div *ngIf="aircraftCode">{{(aircraftNames$ | async)?.[aircraftCode]}}</div>
+      </div>
+    </div>
+    <div class="airport mat-h2">{{arrival?.iataCode}}</div>
+  </div>
+</div>
+<div *ngIf="arrival?.at | formattedDateDiffDuration : nextDeparture?.at as formattedLayoverDuration" class="layover">
+  <mat-icon>schedule</mat-icon>
+  {{formattedLayoverDuration}} in {{arrival?.iataCode}}
+</div>

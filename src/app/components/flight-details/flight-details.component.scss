@@ -1,0 +1,63 @@
+@use '@angular/material' as mat;
+@import 'src/variables';
+
+$primary-text: mat.get-color-from-palette($foreground-palette, 'text');
+$secondary-text: mat.get-color-from-palette($foreground-palette, 'secondary-text');
+$separator-color: mat.get-color-from-palette($foreground-palette, 'dividers');
+$primary-contrast-color: mat.get-contrast-color-from-palette($my-primary, 600);
+$primary-color: mat.get-color-from-palette($my-primary, 600);
+$accent-color: mat.get-color-from-palette($my-accent, 600);
+
+$top-position: 4.3rem;
+$sticky-position-margin-y: 1rem;
+
+:host {
+  display: block;
+  top: $top-position;
+  height: calc(100% - #{$top-position});
+}
+
+.container {
+  @include mat.elevation(3);
+
+  display: block;
+  background: #fff;
+  border: 1px solid $accent-color;
+  border-radius: .5rem;
+  padding: 2rem;
+  position: sticky;
+  top: $sticky-position-margin-y;
+  height: calc(100% - #{$top-position} - #{$sticky-position-margin-y});
+  max-height: calc(100vh - #{$top-position} - 2 * #{$sticky-position-margin-y});
+  overflow-y: auto;
+}
+
+.miles-recap {
+  color: $accent-color;
+}
+
+.miles-message {
+  display: flex;
+  color: $secondary-text;
+}
+
+.miles-title {
+  margin: 1rem 0 0;
+  display: flex;
+}
+
+app-map {
+  max-width: 550px;
+  height: 300px;
+  display: block;
+  margin: 1rem auto auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+
+  .title {
+    flex: 1;
+  }
+}

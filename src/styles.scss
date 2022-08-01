@@ -1,0 +1,12 @@
+@use '@angular/material' as mat;
+@use 'sass:map';
+@import "variables";
+
+@include mat.core();
+@include mat.all-component-themes($my-theme);
+
+body {
+  margin: 0;
+  background: #ddd;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

@@ -1,0 +1,79 @@
+.page-header {
+  height: 69px;
+  background: #fbfbfb;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+  z-index: 2;
+  box-shadow: 0 0 3px #00000088;
+
+  a {
+    margin: 0 16px;
+  }
+
+  img {
+    height: 69px;
+    width: 528px;
+    vertical-align: middle;
+    max-width: 100%;
+  }
+}
+
+.app-container {
+  margin: 0 auto;
+  padding-top: 69px;
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+}
+
+.left-content, .right-content {
+  min-width: 300px;
+}
+
+.middle-content {
+  flex-grow: 1;
+  background: #eee;
+  z-index: 1;
+  max-width: 75%;
+  box-shadow: 0 0 3px #00000033;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+@media (max-width: 900px) {
+  .app-container {
+    padding-top: 0;
+    flex-direction: column-reverse;
+    max-height: 100%;
+  }
+  .left-content {
+
+  }
+
+  .middle-content {
+    max-width: 100%;
+    padding-top: 69px;
+    overflow: auto;
+  }
+}
+
+@media (max-width: 1500px) {
+  .right-content {
+    min-width: 0;
+  }
+}

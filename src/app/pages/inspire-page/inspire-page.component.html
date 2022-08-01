@@ -1,0 +1,61 @@
+<div class="inspire-title">
+  <h2 class="mat-h1">Inspire me</h2>
+</div>
+<div class="inspire-container">
+  <div>
+    <h3 class="mat-h2">Choose your flavor</h3>
+    <div class="flavors" aria-label="Select an option">
+      <mat-card value="beach" [class.selected]="selectedFlavor === 'beach'"
+                class="flavor" tabindex="0" (click)="changeFlavor('beach')">
+        <img mat-card-image class="flavor-image" src="../../../assets/pexels-asad-photo-maldives-240526.jpg"/>
+        <mat-card-title>Beach</mat-card-title>
+      </mat-card>
+      <mat-card value="nature" class="flavor" tabindex="0" (click)="changeFlavor('nature')"
+                [class.selected]="selectedFlavor === 'nature'">
+        <img mat-card-image class="flavor-image" src="../../../assets/pexels-michael-block-3225517.jpg"/>
+        <mat-card-title >Nature</mat-card-title>
+      </mat-card>
+      <mat-card value="city" class="flavor" tabindex="0" (click)="changeFlavor('city')"
+                [class.selected]="selectedFlavor === 'city'">
+        <img mat-card-image class="flavor-image" src="../../../assets/pexels-nout-gons-378570.jpg"/>
+        <mat-card-title>City</mat-card-title>
+      </mat-card>
+    </div>
+  </div>
+  <div *ngIf="destinations$ | async as destinations">
+    <h3>Results for <span class="green-miles">{{selectedFlavor}}</span></h3>
+    <div class="destinations-container">
+      <mat-card *ngFor="let destination of destinations" class="destination">
+        <mat-card-title>{{destination.name}}</mat-card-title>
+        <mat-card-subtitle>
+          <span class="green-miles">GreenMiles©</span> earned: <span
+          class="green-miles-earned">{{destination.greenMiles}}</span>
+        </mat-card-subtitle>
+        <img mat-card-image class="destination-image" width="200" height="150"
+             [src]="'../../assets/cities/' + destination.iataCode + '.jpg'"/>
+        <mat-card-content>
+          <ng-container *ngIf="activities$[destination.iataCode] | async as activities; else noActivities">
+            <div *ngIf="activities.length > 0; else noActivities">
+              <span class="mat-body-2">Get ready for new adventures and visit</span>
+              <ul>
+                <li *ngFor="let activity of activities">
+                  {{activity.name}}
+                </li>
+              </ul>
+            </div>
+          </ng-container>
+          <ng-template #noActivities>
+            <div class="mat-body-2">
+              Be the next explorer and discover your own activities
+            </div>
+          </ng-template>
+        </mat-card-content>
+        <mat-card-actions>
+          <button [routerLink]="'/search'" [state]="{destinationLocation: destination}" mat-flat-button color="primary">
+            Find flights
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>
