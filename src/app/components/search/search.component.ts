@@ -34,12 +34,19 @@ export class SearchComponent implements OnDestroy, ControlValueAccessor {
    * Internal form to manage the component data model
    */
   formGroup = new FormGroup({
-    originLocation: new FormControl<AirportLocation | null>(null, [Validators.required]),
-    destinationLocation: new FormControl<AirportLocation | null>(null, [Validators.required]),
-    departureDate: new FormControl<Date | null>(null, [Validators.required])
+    originLocation: new FormControl<AirportLocation | null>(
+      null, [Validators.required]
+    ),
+    destinationLocation: new FormControl<AirportLocation | null>(
+      null, [Validators.required]
+    ),
+    departureDate: new FormControl<Date | null>(
+      null, [Validators.required]
+    )
   });
   /**
-   * Reference to the subscriptions in the component to clean them upon component deletion
+   * Reference to the subscriptions in the component to clean them
+   * upon component deletion
    * This improve the performances as we do not have any loose subscription running over the application
    */
   subscriptions: Subscription[] = [];
@@ -57,16 +64,14 @@ export class SearchComponent implements OnDestroy, ControlValueAccessor {
    *
    * @see ControlValueAccessor
    */
-  onChange: any = () => {
-  };
+  onChange: any = () => {};
 
   /**
    * Reference to the parent on touched function
    *
    * @see ControlValueAccessor
    */
-  onTouched: any = () => {
-  };
+  onTouched: any = () => {};
 
   /**
    * Emit the search submit event

@@ -22,10 +22,10 @@ export class FlightOffersService {
   public isLoading$: Observable<boolean>;
 
   /**
-   * Data stream with the list of all the dictionaries returned by the latest api call
+   * Data with all the dictionaries returned by the latest api call
+   * This is not a stream so make sure to only call it with your latest call data
    */
-  private dictionarySubject = new BehaviorSubject<Dictionaries>({});
-  public dictionary$ = this.dictionarySubject.asObservable();
+  public dictionaries: {[key: string]: any} = {};
 
   /**
    * Object to perform requests to the shopping endpoint
@@ -52,7 +52,7 @@ export class FlightOffersService {
 
     this.flightOffers$ = flightResponse$.pipe(map(({data}) => data));
     flightResponse$.subscribe(
-      (response) => this.dictionarySubject.next(response.dictionaries || {})
+      (response) => this.dictionaries = response.dictionaries || {}
     );
     this.isLoading$ = merge(
       this.searchFlightRequestSubject.pipe(map(() => true)),
@@ -73,12 +73,11 @@ export class FlightOffersService {
   /**
    * Resolve the aircraft name from the dictionaries returned by the latest api call
    * Caution: If the resulting call has not been computed yet, the result might not reflect it.
-   * For more precise data, bind to the dictionary$ object and map the resulting dictionary
    *
    * @param aircraftCode
    */
   public getAircraftName(aircraftCode: string) {
-    const aircraft = this.dictionarySubject.getValue().aircraft;
+    const aircraft = this.dictionaries['aircraft'];
     if (aircraft) {
       return aircraft[aircraftCode];
     }
@@ -88,12 +87,11 @@ export class FlightOffersService {
   /**
    * Resolve the airline name from the dictionaries returned by the latest api call
    * Caution: If the resulting call has not been computed yet, the result might not reflect it.
-   * For more precise data, bind to the dictionary$ object and map the resulting dictionary
    *
    * @param airlineCode
    */
   public getAirlineName(airlineCode: string) {
-    const airlines = this.dictionarySubject.getValue().carriers;
+    const airlines = this.dictionaries['carriers'];
     if (airlines) {
       return airlines[airlineCode];
     }
@@ -103,12 +101,11 @@ export class FlightOffersService {
   /**
    * Resolve the city code from the dictionaries returned by the latest api call
    * Caution: If the resulting call has not been computed yet, the result might not reflect it.
-   * For more precise data, bind to the dictionary$ object and map the resulting dictionary
    *
    * @param locationCode
    */
   public getCityCode(locationCode: string) {
-    const locations = this.dictionarySubject.getValue().locations;
+    const locations = this.dictionaries['locations'];
     if (locations) {
       return locations[locationCode].cityCode;
     }

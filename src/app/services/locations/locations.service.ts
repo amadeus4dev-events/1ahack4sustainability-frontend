@@ -48,7 +48,7 @@ export class LocationsService {
    * Retrieve coordinates for specific location using Woosmap Localities API
    * @param iataCode
    */
-  async getCoordinatesForAirport2(iataCode: string) {
+  async getCoordinatesForAirportWithWoosmap(iataCode: string) {
     if (!this.coordinatesCache[iataCode]) {
       const coordinates = await this.woosmapService.getCoordinatesForAirport(iataCode);
       if (coordinates) {

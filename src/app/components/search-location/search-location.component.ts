@@ -70,14 +70,33 @@ export class SearchLocationComponent implements OnDestroy, ControlValueAccessor 
    */
   isDisabled = false;
 
+  /**
+   * Method to format the location returned by the api in the location field
+   *
+   * @param location
+   */
+  displayLocation = (location: AirportLocation | null) => location ? `${location.subType === 'CITY' ?
+    location.address?.cityName : location.name} (${location.iataCode})` : '';
+
+  /**
+   * Reference to the parent form change status
+   *
+   * @see ControlValueAccessor
+   */
+  onChange: any = () => {};
+
+  /**
+   * Reference to the parent on touched function
+   *
+   * @see ControlValueAccessor
+   */
+  onTouched: any = () => {};
+
   constructor(private apiManagerService: ApiManager) {
     const loadRequested$ = this.control.valueChanges.pipe(
       distinctUntilChanged(),
       debounceTime(350),
-      map((value) => {
-        const stringValue = typeof value === 'string' ? value : this.displayLocation(value);
-        return stringValue && stringValue.length > 2 ? stringValue : null
-      })
+      map((value) => this.formatSearchRequest(value))
     )
     this.filteredLocations$ = loadRequested$.pipe(
       switchMap(value => value ? this.getLocations(value) : of([])),
@@ -96,30 +115,6 @@ export class SearchLocationComponent implements OnDestroy, ControlValueAccessor 
   }
 
   /**
-   * Method to format the location returned by the api in the location field
-   *
-   * @param location
-   */
-  displayLocation = (location: AirportLocation | null) => location ? `${location.subType === 'CITY' ?
-    location.address?.cityName : location.name} (${location.iataCode})` : '';
-
-  /**
-   * Reference to the parent form change status
-   *
-   * @see ControlValueAccessor
-   */
-  onChange: any = () => {
-  };
-
-  /**
-   * Reference to the parent on touched function
-   *
-   * @see ControlValueAccessor
-   */
-  onTouched: any = () => {
-  };
-
-  /**
    * Retrieve the location matching the substring value
    *
    * @param value
@@ -128,10 +123,19 @@ export class SearchLocationComponent implements OnDestroy, ControlValueAccessor 
     return this.apiManagerService.getLocationApi().getAirportCitySearch({keyword: value, subType: ['AIRPORT', 'CITY']})
       .then((v) => v.data)
       .catch((err) => {
-        // TODO error management
         console.error(err);
         return [];
       });
+  }
+
+  /**
+   * Rework the value to search to match the api expectation
+   *
+   * @param value
+   */
+  formatSearchRequest(value: string | null | AirportLocation) {
+    const stringValue = typeof value === 'string' ? value : this.displayLocation(value);
+    return stringValue && stringValue.length > 2 ? stringValue : null
   }
 
   ngOnDestroy(): void {

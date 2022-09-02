@@ -1,5 +1,5 @@
 .page-header {
-  height: 69px;
+  height: 30px;
   background: #fbfbfb;
   position: absolute;
   top: 0;
@@ -10,16 +10,16 @@
   justify-content: stretch;
   z-index: 2;
   box-shadow: 0 0 3px #00000088;
-
-  a {
-    margin: 0 16px;
-  }
+  font-family: 'Dosis';
+  font-weight: 200;
+  color: #005eb8;
+  font-size: 40px;
+  padding: 19px;
 
   img {
-    height: 69px;
-    width: 528px;
+    padding: 0 1rem;
+    height: 30px;
     vertical-align: middle;
-    max-width: 100%;
   }
 }
 

@@ -241,7 +241,7 @@ export class WeatherService {
    * Chain API calls to get the weather forecast for a specific end point (location + datetime)
    */
   public async getWeatherForEndPoint(endPoint: FlightEndPoint) {
-      const {latitude, longitude} = (await this.locationsService.getCoordinatesForAirport2(endPoint.iataCode))!;
+      const {latitude, longitude} = (await this.locationsService.getCoordinatesForAirportWithWoosmap(endPoint.iataCode))!;
       const day = JSON.stringify(endPoint.at).substring(1, 11);
       const hour = `${JSON.stringify(endPoint.at).substring(1, 14)}:00`;
       const timezone = await this.getTimezone(latitude!, longitude!, day);
@@ -324,6 +324,7 @@ Let's also create a button in flight details component to select a flight and na
   <button mat-flat-button color="primary" [routerLink]="'/weather'" [state]="{flightItinerary: flightItinerary}">Select</button>
 </div>
 ```
+Don't forget to import the router module in your component !
 We'll use the state to pass the selected offer data to the new page
 
 ![how to new button](./assets/how-to-new-button.png)
