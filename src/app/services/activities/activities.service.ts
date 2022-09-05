@@ -2,7 +2,7 @@ import { GeoCode, SearchApi, Success2 } from '@amadeus/self-service-sdk-v1';
 import { GetPointsOfInterestRequestData } from '@amadeus/self-service-sdk-v1/api/search/search-api';
 import { PoiLocation } from '@amadeus/self-service-sdk-v1/models/base/poi-location';
 import { Injectable } from '@angular/core';
-import { catchError, from, map, Observable, of } from 'rxjs';
+import { catchError, from, map, Observable, of, tap } from 'rxjs';
 import { ApiManager } from '../api-manager';
 
 /**
@@ -25,6 +25,12 @@ export class ActivitiesService {
 
   constructor(apiManager: ApiManager) {
     this.searchApi = apiManager.getSearchApi();
+    const localStorage = JSON.parse(window.localStorage.getItem('activities') || '{}');
+    if (localStorage) {
+      Object.keys(localStorage).forEach(
+        (key) => this.activityPerCityMap$[key] = of(localStorage[key])
+      );
+    }
   }
 
   /**
@@ -43,14 +49,30 @@ export class ActivitiesService {
         categories: ['SIGHTS', 'NIGHTLIFE']
       } as GetPointsOfInterestRequestData)).pipe(
         map((pointOfInterestResponse: Success2) => pointOfInterestResponse.data),
+        tap(data => {
+          this.updateLocalStorage(cityCode, data);
+        }),
         catchError((err) => {
           // Request out of the geo localization square supported by the api will throw a 400 error
           if (err && err.statusCode === 400) {
+            this.updateLocalStorage(cityCode, []);
             return of([]);
           }
           return of(undefined);
         })
       );
     }
+  }
+
+  /**
+   * Cache the activities in the local storage to avoid to reach the rate limit
+   *
+   * @param cityCode
+   * @param activities
+   * @private
+   */
+  private updateLocalStorage(cityCode: string, activities: PoiLocation[]) {
+    const storedActivities = JSON.parse(window.localStorage.getItem('activities') || '{}');
+    window.localStorage.setItem('activities', JSON.stringify({...storedActivities, [cityCode]: activities}));
   }
 }

@@ -78,9 +78,17 @@ export class FlightDetailsComponent {
         departureTime: this.flightItinerary!.segments[index + 1]?.departure?.at
       }
     ]).flat();
-    return from(Promise.all(allAirports.map(
-      async (airport) => ({...airport, coords: (await this.getCoordinatesForAirport(airport.iataCode))!})
-    )));
+    return from(Promise.all(
+      allAirports
+        .map(async (airport) => ({
+          ...airport,
+          coords: await this.getCoordinatesForAirport(airport.iataCode)}))
+    )).pipe(
+      map((endpoints) =>
+        // Filter out invalid endpoints
+       endpoints.filter((airport) => !!airport.coords) as { departureTime?: utils.DateTime, arrivalTime?: utils.DateTime, coords: GeoCode, iataCode: string }[]
+      )
+    );
   }
 
   /**
@@ -89,6 +97,9 @@ export class FlightDetailsComponent {
    * @param iataCode standard airport reference code as defined by the Internation Air Transport Association
    */
   private getCoordinatesForAirport(iataCode: string) {
-    return this.locationsService.getCoordinatesForAirport2(iataCode).catch((_err) => undefined);
+    return this.locationsService.getCoordinatesForAirportWithWoosmap(iataCode).catch((_err) => {
+      console.error(_err);
+      return undefined;
+    });
   }
 }

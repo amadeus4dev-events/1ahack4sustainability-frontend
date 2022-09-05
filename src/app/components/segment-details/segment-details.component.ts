@@ -55,24 +55,7 @@ export class SegmentDetailsComponent implements OnInit {
   @Input()
   public aircraftCode?: string;
 
-  /**
-   * Data stream that emits the latest value of airlines dictionary
-   */
-  public airlineNames$: Observable<CarrierEntry>;
-
-  /**
-   * Data stream that emits the latest value of aircraft dictionary
-   */
-  public aircraftNames$: Observable<AircraftEntry>;
-
-  constructor(private flightOffersService: FlightOffersService) {
-    this.aircraftNames$ = this.flightOffersService.dictionary$.pipe(
-      map((dictionary) => dictionary && dictionary.aircraft || {})
-    );
-    this.airlineNames$ = this.flightOffersService.dictionary$.pipe(
-      map((dictionary) => dictionary && dictionary.carriers || {})
-    );
-  }
+  constructor(public flightOffersService: FlightOffersService) {}
 
   ngOnInit(): void {
   }

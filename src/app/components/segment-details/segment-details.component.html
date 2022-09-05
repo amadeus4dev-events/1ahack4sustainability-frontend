@@ -25,8 +25,8 @@
     <div class="flight mat-small">
       <mat-icon>flight</mat-icon>
       <div>
-        <div *ngIf="airlineCode">{{(airlineNames$ | async)?.[airlineCode]}}</div>
-        <div *ngIf="aircraftCode">{{(aircraftNames$ | async)?.[aircraftCode]}}</div>
+        <div *ngIf="airlineCode">{{flightOffersService.dictionaries['carriers']?.[airlineCode]}}</div>
+        <div *ngIf="aircraftCode">{{flightOffersService.dictionaries['aircraft']?.[aircraftCode]}}</div>
       </div>
     </div>
     <div class="airport mat-h2">{{arrival?.iataCode}}</div>

@@ -67,9 +67,15 @@ export class WoosmapService {
    * Retrieve coordinates for specific location using Woosmap Localities API
    * @param iataCode
    */
-  async getCoordinatesForAirport(iataCode: string): Promise<{lat: number; lng: number} | undefined> {
-    const url = `https://api.woosmap.com/localities/autocomplete?key=${this.woosmapConfig.apiKey}&input=${iataCode}&types=airport`;
-    const res:WoosmapLocalitiesResponse = await (await fetch(url)).json();
-    return res.localities.find((locality) => locality.type === 'airport' && locality.iata_code === iataCode)?.location;
+  async getCoordinatesForAirport(iataCode: string): Promise<{ lat: number; lng: number } | undefined> {
+      const url = `https://api.woosmap.com/localities/autocomplete?key=${this.woosmapConfig.apiKey}&input=${iataCode}&types=airport`;
+      const response = await fetch(url);
+      const responseBody = await response.json() as WoosmapLocalitiesResponse;
+      // The response is not typed, we need to make sure it fits our model
+      const location = responseBody?.localities?.find((l: any) => l.type === 'airport' && l.iata_code === iataCode)?.location;
+      if (location && location.lat && location.lng) {
+        return responseBody.localities.find((locality) => locality.type === 'airport' && locality.iata_code === iataCode)?.location;
+      }
+      throw new Error('Incorrect response from the API');
   }
 }
