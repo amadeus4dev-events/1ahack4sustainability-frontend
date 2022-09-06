@@ -2,11 +2,6 @@ import {Inject, Injectable} from '@angular/core';
 import {WOOSMAP_CONFIG_TOKEN, WoosmapConfig} from "./woosmap.tokens";
 import {Observable, shareReplay} from "rxjs";
 
-// Typing of GoogleMaps and Woosmap are very similar
-declare namespace woosmap {
-  let map: typeof google.maps;
-}
-
 /**
  * @see https://developers.woosmap.com/products/localities/details/#response
  */
@@ -33,10 +28,10 @@ export class WoosmapService {
   /**
    * Observable that emits the Woosmap map object, load the script on subscription if not present yet
    */
-  map$: Observable<typeof google.maps>;
+  map$: Observable<typeof woosmap.map>;
 
   constructor(@Inject(WOOSMAP_CONFIG_TOKEN) private woosmapConfig: WoosmapConfig) {
-    this.map$ = new Observable<typeof google.maps>((subscriber) => {
+    this.map$ = new Observable<typeof woosmap.map>((subscriber) => {
       // If the script is somehow already loaded, just use the existing object
       if (typeof woosmap !== 'undefined' && woosmap.map) {
         subscriber.next(woosmap.map);
