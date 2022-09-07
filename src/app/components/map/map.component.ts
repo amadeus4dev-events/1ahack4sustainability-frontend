@@ -6,11 +6,6 @@ import { ChangeDatePipe } from '../../pipe/change-date/change-date.pipe';
 import { WoosmapService } from "../../services/woosmap/woosmap.service";
 import { firstValueFrom } from "rxjs";
 
-// Typing of GoogleMaps and Woosmap are very similar
-declare namespace woosmap {
-  let map: typeof google.maps;
-}
-
 /**
  * Component that wraps a map and enhance it with itinerary information (stops, departure and arrival data)
  */
@@ -30,7 +25,7 @@ export class MapComponent {
    * Reference to the Map widget
    * @private
    */
-  private map!: google.maps.Map;
+  private map!: woosmap.map.Map;
 
   /**
    * Graphic markers on the map computed from the endpoints information
@@ -64,6 +59,8 @@ export class MapComponent {
    */
   private initMap() {
     this.map = new woosmap.map.Map(this.elementRef.nativeElement, {
+      center: new woosmap.map.LatLng(43.2, 1.3),
+      zoom: 3,
       styles: [
         {
           'featureType': 'water',
@@ -152,11 +149,11 @@ export class MapComponent {
    */
   private getAdjustedCoordinates() {
     let minCumulatedLength = Number.MAX_VALUE;
-    let bestAdjustedCoordinates: google.maps.LatLng[] = [];
+    let bestAdjustedCoordinates: woosmap.map.LatLng[] = [];
     for (let i = 0; i < this.endPoints.length; i++) {
       // Adjust coordinates by considering the endPoint at index i to be the western point
       const adjustedCoordinates = this.endPoints.map((endPoint) =>
-        new woosmap.map.LatLng(endPoint.coords!.latitude!, endPoint.coords!.longitude! + (endPoint.coords!.longitude! < this.endPoints[i].coords!.longitude! ? 360 : 0), true));
+        new woosmap.map.LatLng(endPoint.coords!.latitude!, endPoint.coords!.longitude! + (endPoint.coords!.longitude! < this.endPoints[i].coords!.longitude! ? 360 : 0)));
 
       const cumulatedLength = adjustedCoordinates.reduce((total, m, index) => total + (index > 0 ? Math.abs(adjustedCoordinates[index].lng() - adjustedCoordinates[index - 1].lng()) : 0), 0);
       if (cumulatedLength < minCumulatedLength) {
