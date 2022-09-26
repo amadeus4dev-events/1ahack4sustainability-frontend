@@ -1,0 +1,49 @@
+<h2 class="mat-h1">Find Trains</h2>
+<form class="search-container">      
+    
+    <mat-form-field [floatLabel]="'always'">
+        <mat-label>Origin Location</mat-label>
+        <input type="text"
+               placeholder="Pick one"
+               [formControl]="formGroup.controls.originLocation"
+               matInput>
+    </mat-form-field>
+
+    <mat-form-field [floatLabel]="'always'">
+        <mat-label>Destination Location</mat-label>
+        <input type="text"
+               placeholder="Pick one"
+               [formControl]="formGroup.controls.destinationLocation"
+               matInput>
+    </mat-form-field>
+
+    
+  <button mat-flat-button color="primary" aria-label="Search Trains" (click)="onSearch()"
+    [disabled]="formGroup.invalid">
+  <mat-icon>search</mat-icon>
+  <span>Search</span>
+  </button>
+</form>
+
+<!-- <h2 class="mat-h1">Find Trains</h2>
+
+<form class="search-container">
+  <app-search-location [formControl]="formGroup.controls.originLocation"
+                       [label]="'Origin Location'"></app-search-location>
+
+  <app-search-location [formControl]="formGroup.controls.destinationLocation"
+                       [label]="'Destination Location'"></app-search-location>
+
+  <mat-form-field [floatLabel]="'always'">
+    <mat-label>Departure date</mat-label>
+    <input name="departure-date" matInput [matDatepicker]="picker" [formControl]="formGroup.controls.departureDate" placeholder="MM/DD/YYYY">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <button mat-flat-button color="primary" aria-label="Search Trains" (click)="onSearch()"
+          [disabled]="formGroup.invalid">
+    <mat-icon>search</mat-icon>
+    <span>Search</span>
+  </button>
+</form> -->

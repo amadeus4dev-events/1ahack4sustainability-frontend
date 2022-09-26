@@ -8,6 +8,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/inspire-page/inspire-page.module').then(m => m.InspirePageModule)
   },
   {path: 'search', loadChildren: () => import('./pages/search-page/search-page.module').then(m => m.SearchPageModule)},
+  { path: 'TrainItineraries', loadChildren: () => import('./pages/train-itineraries/train-itineraries.module').then(m => m.TrainItinerariesModule) },
 
   {path: '**', redirectTo: 'home'}
 ];
