@@ -51,7 +51,22 @@ Open your browser and navigate to [http://localhost:4200](http://localhost:4200)
 
 Click on random buttons on the page and observe that things are happening
 
-You are all set up!
+Negative
+: You may notice that some calls are failing, we need to setup the API keys
+
+Open the file `src/app/app.config.ts`
+
+- create an account at [https://developers.amadeus.com/register](https://developers.amadeus.com/register) and copy your keys into `amadeusApiConfig.gatewayClientId` and `amadeusApiConfig.gatewayClientPrivate`
+- create an account at [https://www.woosmap.com/sign_up](https://www.woosmap.com/sign_up)
+  
+  create a project with Maps and Localities APIs
+
+  In Security tab, add a domain to allow `localhost` and copy your public key into `woosmapApiConfig.apiKey`
+
+After your save, you can directly reload the page and the calls should now be working.
+
+Positive
+: You are all set up!
 
 ## Presentation of the app
 Duration: 4
@@ -153,7 +168,11 @@ The format looks like the following:
 `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&hourly=temperature_2m,weathercode&start_date=${day}&end_date=${day}`
 ```
 
-To handle that, let's create a service using Angular CLI in the terminal:
+To handle that, let's create a service using Angular CLI in the terminal
+
+Positive
+: If you never used Angular CLI before, you can install it simply by running `npm install -g @angular/cli` once
+
 ```shell
 ng g service --name=services/weather/weather
 ```
