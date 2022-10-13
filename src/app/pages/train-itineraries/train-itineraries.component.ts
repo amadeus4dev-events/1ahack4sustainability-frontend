@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SearchFormData } from '../../components/train-itinerary-search/train-itinerary-search.interfaces';
-import { TrainItinerariesService } from '../../services/TrainItineraries/train-itineraries.service';
+import { TrainItinerariesService, TrainItinerariesResponse, itinerary } from '../../services/TrainItineraries/train-itineraries.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-train-itineraries',
@@ -18,22 +19,49 @@ export class TrainItinerariesComponent implements OnInit {
     destinationLocation: ""
   };
 
-  constructor(private trainItinerariesService: TrainItinerariesService, router: Router) {
+  public responseSearchId: string;  
+  public itineraries: itinerary[]= [];
+
+  constructor(private trainItinerariesService: TrainItinerariesService, router: Router,private _snackBar: MatSnackBar) {
+    this.responseSearchId="";
     const destinationLocation = router.getCurrentNavigation()?.extras.state?.['destinationLocation'];
     if (destinationLocation) {
       this.searchForm.destinationLocation = destinationLocation;
     }
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {      
   }
+
 
   /**
    * Search for flights matching the SearchPageComponent search form
    */
   onSearch() {
-    console.log('Searching', this.searchForm.originLocation, this.searchForm.destinationLocation);
-    this.trainItinerariesService.getTrainItineraries(this.searchForm.originLocation, this.searchForm.destinationLocation);
+    console.log('Searching for ', this.searchForm.originLocation, this.searchForm.destinationLocation);
+    
+    //Call Service
+    this.trainItinerariesService.getTrainItineraries(this.searchForm.originLocation, this.searchForm.destinationLocation)
+    .then(this.updateSearchId.bind(this))
+    .catch(this.handleError.bind(this));
+
+    
   }
+
+  updateSearchId(response: TrainItinerariesResponse){
+    const responseData = response?.data;
+    console.log("RailKit: Full Response from RailKitAPI: ",responseData)
+    console.log("RailKit: returned searchID : ",responseData.id)
+    this.responseSearchId = responseData.id;
+    this.itineraries = responseData.itineraries;
+   
+    this._snackBar.open('Search successfull. Returned search ID  : ' + this.responseSearchId, 'OK');
+  }
+
+  handleError(err: string){
+    console.log("ERROR : " + err)
+    this._snackBar.open('Search FAILED. Check console', 'OK');
+  }
+
 
 }

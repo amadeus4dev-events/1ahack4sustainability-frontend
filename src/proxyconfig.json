@@ -1,0 +1,12 @@
+{
+    "/RailKitAPI/*":{
+        "target": "https://noded1.test.api.amadeus.com",
+        "secure": false,
+        "pathRewrite":{
+            "^/RailKitAPI": ""
+        },
+        "changeOrigin": false,
+        "logLevel": "debug"
+    }
+
+}

@@ -1,8 +1,8 @@
-import { AirportLocation } from '@amadeus/self-service-sdk-v1/models/base/airport-location/airport-location';
 import { Component, EventEmitter, forwardRef, OnDestroy, Output } from '@angular/core';
 import { ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatestWith, filter, map, Observable, Subscription , of} from 'rxjs';
 import { SearchFormData } from './train-itinerary-search.interfaces';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 /**
  * Form to fill the search data. It will behave as a form control for its parent component.
@@ -48,13 +48,15 @@ export class TrainItinerarySearchComponent implements OnDestroy, ControlValueAcc
    */
   subscriptions: Subscription[] = [];
 
-  constructor() {
+  constructor(private _snackBar: MatSnackBar) {
     // Every time the form is updated, share the value to the form in the parent
     this.subscriptions.push(this.formGroup.valueChanges.subscribe((value) => {
       this.onChange(value);
       this.onTouched();
-    }));
+    })
+    );
   }
+
 
   /**
    * Reference to the parent form change status
@@ -82,6 +84,8 @@ export class TrainItinerarySearchComponent implements OnDestroy, ControlValueAcc
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
+
+  
 
   /**
    * Register the onChange methods to the parent form onChange method.
@@ -114,8 +118,8 @@ export class TrainItinerarySearchComponent implements OnDestroy, ControlValueAcc
   writeValue(obj: Partial<SearchFormData>): void {
     if (obj) {
       this.formGroup.setValue({
-        originLocation: "",
-        destinationLocation: ""
+        originLocation: "Paris Nord", //initialized to these values as the sample API query is targetting these orignin and destination
+        destinationLocation: "London"
       });
     }
   }

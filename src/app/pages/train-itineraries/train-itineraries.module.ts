@@ -6,6 +6,8 @@ import { TrainItinerarySearchModule } from '../../components/train-itinerary-sea
 
 import { TrainItinerariesRoutingModule } from './train-itineraries-routing.module';
 import { TrainItinerariesComponent } from './train-itineraries.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { TrainItinerariesComponent } from './train-itineraries.component';
     TrainItinerariesRoutingModule,
     TrainItinerarySearchModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSnackBarModule,
+    MatCardModule
   ]
 })
 export class TrainItinerariesModule {

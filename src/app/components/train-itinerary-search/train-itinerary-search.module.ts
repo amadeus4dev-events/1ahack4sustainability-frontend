@@ -8,6 +8,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { TrainItinerarySearchComponent } from './train-itinerary-search.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 @NgModule({
   declarations: [TrainItinerarySearchComponent],
@@ -21,6 +23,7 @@ import { TrainItinerarySearchComponent } from './train-itinerary-search.componen
     MatInputModule,
     MatNativeDateModule,
     ReactiveFormsModule,
+    MatSnackBarModule
   ],
   exports: [TrainItinerarySearchComponent]
 })

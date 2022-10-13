@@ -5,6 +5,7 @@
 export interface SearchFormData {
   originLocation: string;
   destinationLocation: string;
+  
 }
 
 /**
