@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TrainItinerariesComponent } from './train-itineraries.component';
+import { TrainItinerariesPageComponent } from './train-itineraries.component';
 
-const routes: Routes = [{ path: '', component: TrainItinerariesComponent }];
+const routes: Routes = [{ path: '', component: TrainItinerariesPageComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

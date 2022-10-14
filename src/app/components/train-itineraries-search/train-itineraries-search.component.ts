@@ -1,8 +1,7 @@
 import { Component, EventEmitter, forwardRef, OnDestroy, Output } from '@angular/core';
 import { ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { BehaviorSubject, combineLatestWith, filter, map, Observable, Subscription , of} from 'rxjs';
-import { SearchFormData } from './train-itinerary-search.interfaces';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { SearchFormData } from './train-itineraries-search.interfaces';
 
 /**
  * Form to fill the search data. It will behave as a form control for its parent component.
@@ -11,18 +10,18 @@ import { MatSnackBar } from '@angular/material/snack-bar';
  *
  */
 @Component({
-  selector: 'app-train-itinerary-search',
-  templateUrl: './train-itinerary-search.component.html',
-  styleUrls: ['./train-itinerary-search.component.scss'],
+  selector: 'app-train-itineraries-search',
+  templateUrl: './train-itineraries-search.component.html',
+  styleUrls: ['./train-itineraries-search.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => TrainItinerarySearchComponent),
+      useExisting: forwardRef(() => TrainItinerariesSearchComponent),
       multi: true
     }
   ]
 })
-export class TrainItinerarySearchComponent implements OnDestroy, ControlValueAccessor {
+export class TrainItinerariesSearchComponent implements OnDestroy, ControlValueAccessor {
 
   /**
    * Emit when the user submitted the form
@@ -48,7 +47,7 @@ export class TrainItinerarySearchComponent implements OnDestroy, ControlValueAcc
    */
   subscriptions: Subscription[] = [];
 
-  constructor(private _snackBar: MatSnackBar) {
+  constructor() {
     // Every time the form is updated, share the value to the form in the parent
     this.subscriptions.push(this.formGroup.valueChanges.subscribe((value) => {
       this.onChange(value);

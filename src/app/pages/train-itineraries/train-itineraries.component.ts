@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SearchFormData } from '../../components/train-itinerary-search/train-itinerary-search.interfaces';
-import { TrainItinerariesService, TrainItinerariesResponse, itinerary } from '../../services/TrainItineraries/train-itineraries.service';
+import { SearchFormData } from '../../components/train-itineraries-search/train-itineraries-search.interfaces';
+import { TrainItinerariesService, TrainItinerariesResponse, itinerary } from '../../services/train-itineraries/train-itineraries.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -9,7 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './train-itineraries.component.html',
   styleUrls: ['./train-itineraries.component.scss']
 })
-export class TrainItinerariesComponent implements OnInit {
+export class TrainItinerariesPageComponent implements OnInit {
 
   /**
    * Search form that will be submitted by the user
@@ -42,13 +42,13 @@ export class TrainItinerariesComponent implements OnInit {
     
     //Call Service
     this.trainItinerariesService.getTrainItineraries(this.searchForm.originLocation, this.searchForm.destinationLocation)
-    .then(this.updateSearchId.bind(this))
+    .then(this.updateSearchResults.bind(this))
     .catch(this.handleError.bind(this));
 
     
   }
 
-  updateSearchId(response: TrainItinerariesResponse){
+  updateSearchResults(response: TrainItinerariesResponse){
     const responseData = response?.data;
     console.log("RailKit: Full Response from RailKitAPI: ",responseData)
     console.log("RailKit: returned searchID : ",responseData.id)

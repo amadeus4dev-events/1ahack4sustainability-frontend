@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import * as CryptoJS from 'crypto-js';
+import { RailKitApiManagerConfig, RAILKIT_API_MANAGER_CONFIG_TOKEN } from './train-itineraries.tokens';
 
 export interface TrainItinerariesResponse {
   data: {
@@ -24,6 +25,9 @@ export interface itinerary {
   providedIn: 'root'
 })
 export class TrainItinerariesService {
+
+  constructor(@Inject(RAILKIT_API_MANAGER_CONFIG_TOKEN) private railKitApiConfig: RailKitApiManagerConfig) {
+  }
  
   /**
    * API call to retrieve train itineraries
@@ -31,10 +35,11 @@ export class TrainItinerariesService {
    public async getTrainItineraries(origin: string, destination: string) {
     const time = new Date().toISOString();
     //Compute the needed authorization token.
-    //TODO: Please Request the password to your Rail mentors. And update the second argument ('ASKFORPWD') in the call below
+    //All credentials details are set in app.config.ts
     //More deatils in documentation: https://github.com/amadeus4dev-events/Developer-guide/blob/main/RailkitApi/README.md 
     //and in https://github.com/amadeus4dev-events/Developer-guide/blob/main/RailkitApi/1AAuth.docx
-    const http1AAuth=this.compute1aAuth('USSBBRAILK','ASKFORPWD', 'RAIL-SBB',this.createNonce(16),'BRN2S78AG', time)
+    const http1AAuth=this.compute1aAuth(this.railKitApiConfig.userId,this.railKitApiConfig.password, 
+      this.railKitApiConfig.organization,this.createNonce(16),this.railKitApiConfig.officeID, time)
     
     //Call Railkit API in order to search for itineraries
     //Below example is hardcoding the origin (8727100 =Paris), detination (7015550 = London) and departure  (2022-10-16T10:33:00)

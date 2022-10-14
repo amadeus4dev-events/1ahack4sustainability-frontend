@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TrainItinerariesComponent } from './train-itineraries.component';
+import { TrainItinerariesPageComponent } from './train-itineraries.component';
 
-describe('TrainItinerariesComponent', () => {
-  let component: TrainItinerariesComponent;
-  let fixture: ComponentFixture<TrainItinerariesComponent>;
+describe('TrainItinerariesPageComponent', () => {
+  let component: TrainItinerariesPageComponent;
+  let fixture: ComponentFixture<TrainItinerariesPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TrainItinerariesComponent ]
+      declarations: [ TrainItinerariesPageComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TrainItinerariesComponent);
+    fixture = TestBed.createComponent(TrainItinerariesPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -7,12 +7,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { TrainItinerarySearchComponent } from './train-itinerary-search.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { TrainItinerariesSearchComponent } from './train-itineraries-search.component';
+
 
 
 @NgModule({
-  declarations: [TrainItinerarySearchComponent],
+  declarations: [TrainItinerariesSearchComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -22,10 +22,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatIconModule,
     MatInputModule,
     MatNativeDateModule,
-    ReactiveFormsModule,
-    MatSnackBarModule
+    ReactiveFormsModule    
   ],
-  exports: [TrainItinerarySearchComponent]
+  exports: [TrainItinerariesSearchComponent]
 })
-export class TrainItinerarySearchModule {
+export class TrainItinerariesSearchModule {
 }
