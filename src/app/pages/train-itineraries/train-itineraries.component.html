@@ -1,0 +1,33 @@
+<app-train-itineraries-search [(ngModel)]="searchForm" (search)="onSearch()"></app-train-itineraries-search>
+<h2>Example on how to search for train schedules using RailKit API</h2>
+<ul>
+  <li>The search above is hardcoded to this criteria: "Paris Nord" to "London" on the 16th of October 2022.</li>
+  <li>See in "src/app/services/TrainItineraries/train-itineraries.service.ts" file for more details. Read the comments in the code too</li>
+  <li>Check console: Some outputs are there too</li>
+  <li>Documentation about RailKit API: <a href="https://github.com/amadeus4dev-events/Developer-guide/blob/main/RailkitApi/README.md" target="_blank">here</a></li>
+</ul>
+<h2>Search Results: </h2>
+<div *ngIf="itineraries.length > 0">
+    
+    <ng-container *ngFor="let iti of itineraries;">
+      <mat-card class="flight-card"
+          tabindex="0">
+        <div>
+          <div class="info">{{iti.departureDateTime | date: 'E dd MMM'}}</div>
+          <div class="date">{{iti.departureDateTime | date: 'HH:mm'}}</div>
+          <div class="info">{{iti.origin.name}}</div>
+        </div>
+        <div class="info">Duration: Xh Ym</div> 
+               
+        <div>
+          <div class="info">{{iti.arrivalDateTime | date: 'E dd MMM' }}</div>
+          <div class="date">{{iti.arrivalDateTime | date: 'HH:mm'  }}</div>
+          <div class="info">{{iti.destination.name}}</div>
+        </div>   
+        <div class="card-price">
+          <div>Price/Co2/...</div>
+        </div>             
+    </mat-card>
+    </ng-container>
+    
+</div>

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config src/proxyconfig.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -24,6 +24,7 @@
     "@angular/router": "^14.2.0",
     "@dapi/amadeus-gateway-sdk": "^1.1.7",
     "@dapi/sdk-core": "^3.3.4",
+    "crypto-js": "^4.1.1",
     "isomorphic-fetch": "^3.0.0",
     "rxjs": "~7.5.0",
     "stream-browserify": "^3.0.0",
@@ -34,8 +35,9 @@
     "@angular-devkit/build-angular": "^14.2.0",
     "@angular/cli": "~14.2.0",
     "@angular/compiler-cli": "^14.2.0",
-    "@types/woosmap.map": "^1.4.0",
+    "@types/crypto-js": "^4.1.1",
     "@types/jasmine": "~4.0.0",
+    "@types/woosmap.map": "^1.4.0",
     "jasmine-core": "~4.1.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",

@@ -1,0 +1,48 @@
+header {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: #fff;
+    border-radius: 15px;
+    width: 48rem;
+    padding-top: 0.75rem;
+    margin: 5rem auto auto;
+  }
+  
+  app-search-location, mat-form-field {
+    margin-right: 1rem;
+  }
+  
+  h2 {
+    text-align: center;
+    background: #00000088;
+    color: white;
+    padding: .5rem;
+    margin-top: 0;
+  }
+  
+  button {
+    margin-bottom: 0.75rem;
+  
+    &.mat-flat-button.mat-primary:not(.mat-button-disabled) {
+      color: white;
+    }
+  }
+  
+  
+  @media (max-width: 1100px) {
+    .search-container {
+      width: auto;
+      overflow: hidden;
+      flex-wrap: wrap;
+      margin-top: 0;
+      border-radius: 0;
+    }
+  }
+  

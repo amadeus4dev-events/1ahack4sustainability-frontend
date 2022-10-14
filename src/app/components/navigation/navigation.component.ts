@@ -16,6 +16,7 @@ export class NavigationComponent {
     {label: 'Home', icon: 'home', path: '/home'},
     {label: 'Inspire me', icon: 'emoji_objects', path: '/inspire'},
     {label: 'Find flights', icon: 'search', path: '/search'},
+    {label: 'Find Trains', icon: 'search', path: '/TrainItineraries'}
   ];
 
   /**
